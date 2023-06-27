@@ -35,6 +35,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +47,7 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.Switch
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
@@ -58,13 +61,33 @@ fun ButtonExample(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
-
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        // Button
+        Button(
+            modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+            onClick = { /* ... */ },
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Phone,
+                contentDescription = "triggers phone action",
+                modifier = iconModifier
+            )
+        }
+    }
 }
 
 // TODO: Create a Text Composable
 @Composable
 fun TextExample(modifier: Modifier = Modifier) {
-
+    Text(
+        modifier = modifier,
+        textAlign = TextAlign.Center,
+        color = MaterialTheme.colors.primary,
+        text = stringResource(R.string.device_shape)
+    )
 }
 
 // TODO: Create a Card (specifically, an AppCard) Composable
@@ -73,7 +96,22 @@ fun CardExample(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
-
+    AppCard(
+        modifier = modifier,
+        appImage = {
+            Icon(
+                imageVector = Icons.Rounded.Message,
+                contentDescription = "triggers open message action",
+                modifier = iconModifier
+            )
+        },
+        appName = { Text("Messages") },
+        time = { Text("12m") },
+        title = { Text("Kim Green") },
+        onClick = { /* ... */ }
+    ) {
+        Text("On my way!")
+    }
 }
 
 // TODO: Create a Chip Composable
@@ -82,14 +120,59 @@ fun ChipExample(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
-
+    Chip(
+        modifier = modifier,
+        onClick = { /* ... */ },
+        label = {
+            Text(
+                text = "5 minute Meditation",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        icon = {
+            Icon(
+                imageVector = Icons.Rounded.SelfImprovement,
+                contentDescription = "triggers meditation action",
+                modifier = iconModifier
+            )
+        },
+    )
 }
 
 // TODO: Create a ToggleChip Composable
 @Composable
 fun ToggleChipExample(modifier: Modifier = Modifier) {
-
+    var checked by remember { mutableStateOf(true) }
+    ToggleChip(
+        modifier = modifier,
+        checked = checked,
+        toggleControl = {
+            Switch(
+                checked = checked,
+                modifier = Modifier.semantics {
+                    this.contentDescription = if (checked) "On" else "Off"
+                }
+            )
+        },
+        onCheckedChange = {
+            checked = it
+        },
+        label = {
+            Text(
+                text = "Sound",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    )
 }
+
+//@Preview(showBackground = false)
+//@Composable
+//fun PreviewToggleChipExample() {
+//    ToggleChipExample()
+//}
 
 // Function only used as a demo for when you start the code lab (removed as step 1).
 @Composable
@@ -110,7 +193,7 @@ fun StartOnlyTextComposables() {
     group = "Starter",
     widthDp = WEAR_PREVIEW_ELEMENT_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ELEMENT_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -127,7 +210,7 @@ fun StartOnlyTextComposablesPreview() {
     group = "Button",
     widthDp = WEAR_PREVIEW_ELEMENT_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ELEMENT_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -136,8 +219,12 @@ fun StartOnlyTextComposablesPreview() {
 fun ButtonExamplePreview() {
     WearAppTheme {
         ButtonExample(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-            iconModifier = Modifier.size(24.dp).wrapContentSize(align = Alignment.Center)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            iconModifier = Modifier
+                .size(24.dp)
+                .wrapContentSize(align = Alignment.Center)
         )
     }
 }
@@ -147,7 +234,7 @@ fun ButtonExamplePreview() {
     group = "Text",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -156,7 +243,9 @@ fun ButtonExamplePreview() {
 fun TextExamplePreview() {
     WearAppTheme {
         TextExample(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
         )
     }
 }
@@ -166,7 +255,7 @@ fun TextExamplePreview() {
     group = "Card",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -175,8 +264,12 @@ fun TextExamplePreview() {
 fun CardExamplePreview() {
     WearAppTheme {
         CardExample(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-            iconModifier = Modifier.size(24.dp).wrapContentSize(align = Alignment.Center)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            iconModifier = Modifier
+                .size(24.dp)
+                .wrapContentSize(align = Alignment.Center)
         )
     }
 }
@@ -187,7 +280,7 @@ fun CardExamplePreview() {
     group = "Chip",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -196,8 +289,12 @@ fun CardExamplePreview() {
 fun ChipExamplePreview() {
     WearAppTheme {
         ChipExample(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-            iconModifier = Modifier.size(24.dp).wrapContentSize(align = Alignment.Center)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            iconModifier = Modifier
+                .size(24.dp)
+                .wrapContentSize(align = Alignment.Center)
         )
     }
 }
@@ -207,7 +304,7 @@ fun ChipExamplePreview() {
     group = "Toggle Chip",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -216,7 +313,9 @@ fun ChipExamplePreview() {
 fun ToggleChipExamplePreview() {
     WearAppTheme {
         ToggleChipExample(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
         )
     }
 }

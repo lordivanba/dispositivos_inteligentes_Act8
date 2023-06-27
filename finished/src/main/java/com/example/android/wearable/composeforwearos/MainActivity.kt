@@ -33,6 +33,7 @@ import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
@@ -59,6 +60,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WearApp()
+//            Text(text = "Hello there!")
         }
     }
 }
@@ -68,7 +70,6 @@ fun WearApp() {
     WearAppTheme {
         // TODO: Swap to ScalingLazyListState
         val listState = rememberScalingLazyListState()
-
         /* *************************** Part 4: Wear OS Scaffold *************************** */
         // TODO (Start): Create a Scaffold (Wear Version)
         Scaffold(
@@ -97,11 +98,11 @@ fun WearApp() {
 
             /* *************************** Part 3: ScalingLazyColumn *************************** */
             // TODO: Swap a ScalingLazyColumn (Wear's version of LazyColumn)
+            // TODO: Swap a ScalingLazyColumn (Wear's version of LazyColumn)
             ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 autoCentering = AutoCenteringParams(itemIndex = 0),
-                state = listState
-            ) {
+                state = listState){
 
                 /* ******************* Part 1: Simple composables ******************* */
                 item { ButtonExample(contentModifier, iconModifier) }
@@ -122,7 +123,7 @@ fun WearApp() {
 @Preview(
     widthDp = WEAR_PREVIEW_DEVICE_WIDTH_DP,
     heightDp = WEAR_PREVIEW_DEVICE_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND

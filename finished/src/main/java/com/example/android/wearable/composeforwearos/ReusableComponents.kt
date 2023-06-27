@@ -34,7 +34,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Switch
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -50,7 +49,6 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Switch
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
-import androidx.wear.compose.material.ToggleChipDefaults
 import com.example.android.wearable.composeforwearos.theme.WearAppTheme
 
 /* Contains individual Wear OS demo composables for the code lab. */
@@ -168,6 +166,12 @@ fun ToggleChipExample(modifier: Modifier = Modifier) {
     )
 }
 
+//@Preview(showBackground = false)
+//@Composable
+//fun PreviewToggleChipExample() {
+//    ToggleChipExample()
+//}
+
 // Function only used as a demo for when you start the code lab (removed as step 1).
 @Composable
 fun StartOnlyTextComposables() {
@@ -187,7 +191,7 @@ fun StartOnlyTextComposables() {
     group = "Starter",
     widthDp = WEAR_PREVIEW_ELEMENT_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ELEMENT_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -204,7 +208,7 @@ fun StartOnlyTextComposablesPreview() {
     group = "Button",
     widthDp = WEAR_PREVIEW_ELEMENT_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ELEMENT_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -228,7 +232,7 @@ fun ButtonExamplePreview() {
     group = "Text",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -249,7 +253,7 @@ fun TextExamplePreview() {
     group = "Card",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -274,7 +278,7 @@ fun CardExamplePreview() {
     group = "Chip",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
@@ -298,7 +302,7 @@ fun ChipExamplePreview() {
     group = "Toggle Chip",
     widthDp = WEAR_PREVIEW_ROW_WIDTH_DP,
     heightDp = WEAR_PREVIEW_ROW_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND

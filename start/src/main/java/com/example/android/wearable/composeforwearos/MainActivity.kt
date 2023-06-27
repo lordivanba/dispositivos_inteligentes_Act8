@@ -40,6 +40,7 @@ import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.rememberScalingLazyListState
+import androidx.wear.compose.material.scrollAway
 import com.example.android.wearable.composeforwearos.theme.WearAppTheme
 
 /**
@@ -61,6 +62,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WearApp()
+//            Text(text = "Hello there!")
         }
     }
 }
@@ -69,31 +71,40 @@ class MainActivity : ComponentActivity() {
 fun WearApp() {
     WearAppTheme {
         // TODO: Swap to ScalingLazyListState
-        val listState = rememberLazyListState()
-
+        val listState = rememberScalingLazyListState()
         /* *************************** Part 4: Wear OS Scaffold *************************** */
         // TODO (Start): Create a Scaffold (Wear Version)
+        Scaffold(
+            timeText = {
+                TimeText(modifier = Modifier.scrollAway(listState))
+            },
+            vignette = {
+                // Only show a Vignette for scrollable screens. This code lab only has one screen,
+                // which is scrollable, so we show it all the time.
+                Vignette(vignettePosition = VignettePosition.TopAndBottom)
+            },
+            positionIndicator = {
+                PositionIndicator(
+                    scalingLazyListState = listState
+                )
+            }
+        ) {
 
             // Modifiers used by our Wear composables.
-            val contentModifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
-            val iconModifier = Modifier.size(24.dp).wrapContentSize(align = Alignment.Center)
+            val contentModifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+            val iconModifier = Modifier
+                .size(24.dp)
+                .wrapContentSize(align = Alignment.Center)
 
             /* *************************** Part 3: ScalingLazyColumn *************************** */
             // TODO: Swap a ScalingLazyColumn (Wear's version of LazyColumn)
-            LazyColumn(
+            // TODO: Swap a ScalingLazyColumn (Wear's version of LazyColumn)
+            ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(
-                    top = 32.dp,
-                    start = 8.dp,
-                    end = 8.dp,
-                    bottom = 32.dp
-                ),
-                verticalArrangement = Arrangement.Center,
-                state = listState
-            ) {
-
-                // TODO: Remove item; for beginning only.
-                item { StartOnlyTextComposables() }
+                autoCentering = AutoCenteringParams(itemIndex = 0),
+                state = listState){
 
                 /* ******************* Part 1: Simple composables ******************* */
                 item { ButtonExample(contentModifier, iconModifier) }
@@ -105,8 +116,8 @@ fun WearApp() {
                 item { ToggleChipExample(contentModifier) }
             }
 
-        // TODO (End): Create a Scaffold (Wear Version)
-
+            // TODO (End): Create a Scaffold (Wear Version)
+        }
     }
 }
 
@@ -114,7 +125,7 @@ fun WearApp() {
 @Preview(
     widthDp = WEAR_PREVIEW_DEVICE_WIDTH_DP,
     heightDp = WEAR_PREVIEW_DEVICE_HEIGHT_DP,
-    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    apiLevel = 30,
     uiMode = WEAR_PREVIEW_UI_MODE,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
